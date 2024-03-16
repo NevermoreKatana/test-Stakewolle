@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'testapi.urls'
@@ -172,3 +173,4 @@ EMAIL_ADMIN = EMAIL_HOST_USER
 STATIC_URL = 'testapi/static/'
 if not DEBUG:
     STATIC_ROOT = 'testapi/staticfiles'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
