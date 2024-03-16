@@ -2,7 +2,7 @@ docker-build:
 	docker-compose up --build
 
 install:
-	poetry install
+	./deploy.sh
 
 start-dev:
 	poetry run python manage.py runserver
