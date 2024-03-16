@@ -43,3 +43,9 @@ jobs:
     - name: Run Tests
       run: |
         poetry run python manage.py test
+    - name: Test Coverahe:
+      run: 
+      export CODACY_PROJECT_TOKEN=${{ secrets.COV_TOKEN }}
+      make cov
+      bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r cobertura.xml
+    
