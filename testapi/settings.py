@@ -168,3 +168,7 @@ EMAIL_HOST_PASSWORD = settings.email_host_password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
+
+STATIC_URL = 'testapi/static/'
+if not DEBUG:
+    STATIC_ROOT = 'testapi/staticfiles'
