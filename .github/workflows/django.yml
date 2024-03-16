@@ -43,7 +43,7 @@ jobs:
     - name: Run Tests
       run: |
         poetry run python manage.py test
-    - name: Test Coverahe:
+    - name: Test Coverage
       run: | 
       export CODACY_PROJECT_TOKEN=${{ secrets.COV_TOKEN }}
       make cov
