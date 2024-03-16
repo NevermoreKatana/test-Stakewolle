@@ -59,8 +59,8 @@ make docker-build
 Документация созданная с помощью Swagger:
 - [Swagger UI Docs](http://localhost:8000/swagger/)
 
-Примечание:
-Открыть ссылку на документацию Swagger возможно открыть только при запущенном сервере, если сервер запущен не на localhost:8000 - ничего не получится!
+### Примечание:
+### Открыть ссылку на документацию Swagger возможно открыть только при запущенном сервере, если сервер запущен не на localhost:8000 - ничего не получится!
 
 ## Тесты
 С результатами тестов АПИ можно ознакомиться нажав по бейджу [![Django CI Тесты](https://github.com/NevermoreKatana/test-Stakewolle/actions/workflows/django.yml/badge.svg)](https://github.com/NevermoreKatana/test-Stakewolle/actions/workflows/django.yml) 
@@ -68,3 +68,5 @@ make docker-build
 С результатами покрытия кода можно ознакомиться кликнув по бейджу[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/5b8f1dcc4c5248369aa3e45cead2454e)](https://app.codacy.com/gh/NevermoreKatana/test-Stakewolle/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
 Использовался сервис Codacy
+
+### Миграции выполняются автоматически при каждый раз при запуске контейнера
