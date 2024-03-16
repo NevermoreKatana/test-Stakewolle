@@ -6,8 +6,8 @@
 
 
 ## Ссылка на задеплоенное приложение 
-[Swagger UI Deploy](https://test-stakewolle.onrender.com/)
-### Так же можно отправлять API запросы на этот хост
+[Swagger UI Deploy]([https://test-stakewolle.onrender.com/](https://test-stakewolle.onrender.com/swagger/))
+### Так же можно отправлять API запросы на этот хост P.s. Хост бесплатный, может долго грузиться
 
 # Стек
 - Django
