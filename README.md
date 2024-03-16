@@ -52,6 +52,10 @@ EH_API_KEY= Апи ключ для emailhunter.co, можно узнать в п
 ```
 make docker-build
 ```
+# Запуск отдельно сервера Django
+```
+make start-dev
+```
 
 ## Документации
 Документация созданная с помощью Postman:
