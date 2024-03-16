@@ -1,5 +1,6 @@
 import requests
 import swagger_docs 
+from rest_framework.request import Request
 from dateutil import parser
 from testapi.serializers import UserSerializer, ReferralCodeSerializer
 from testapi.models import ReferralCode, Referral
@@ -17,11 +18,38 @@ USER_MODEL = get_user_model()
 
 
 class UserRegistrationView(views.APIView):
-    permission_classes = [AllowAny]
+    """
+    API-представление для регистрации пользователя.
+
+    Это представление позволяет любому пользователю зарегистрироваться. Оно проверяет данные пользователя,
+    подтверждает адрес электронной почты и создает нового пользователя. Если предоставлен действительный
+    реферальный код, создается объект реферала.
+
+    Атрибуты:
+        permission_classes: Список классов разрешений, которые должно использовать представление.
+    """
+    
+    permission_classes: list = [AllowAny]
 
 
     @swagger_docs.user_registration_schema
-    def post(self, request):
+    def post(self, request: Request) -> Response:
+        """
+        Обрабатывает POST-запросы для регистрации пользователя.
+
+        Этот метод проверяет данные пользователя с помощью UserSerializer. Если данные действительны,
+        он подтверждает адрес электронной почты с помощью API hunter.io. Если адрес электронной почты действителен,
+        он создает нового пользователя. Если предоставлен действительный реферальный код, он создает объект реферала.
+
+        Аргументы:
+            request: Объект запроса.
+
+        Возвращает:
+            Объект Response. Если данные пользователя и адрес электронной почты действительны, и пользователь успешно создан,
+            он возвращает статус 201 и сообщение об успехе. Если адрес электронной почты или реферальный код недействителен,
+            он возвращает статус 400 и сообщение об ошибке. Если данные пользователя недействительны, он возвращает статус 400 и ошибки проверки.
+        """
+        
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             email = serializer.validated_data.get("email")
@@ -54,11 +82,35 @@ class UserRegistrationView(views.APIView):
 
 
 class UserLoginView(views.APIView):
-    permission_classes = [AllowAny]
+    """
+    API-представление для входа пользователя.
+
+    Это представление позволяет любому пользователю войти в систему. Оно проверяет имя пользователя и пароль,
+    аутентифицирует пользователя и, если аутентификация прошла успешно, возвращает токены обновления и доступа.
+
+    Атрибуты:
+        permission_classes: Список классов разрешений, которые должно использовать представление.
+    """
+    
+    permission_classes: list = [AllowAny]
     
     
     @swagger_docs.user_login_schema
-    def post(self, request):
+    def post(self, request: Request) -> Response:
+        """
+        Обрабатывает POST-запросы для входа пользователя.
+
+        Этот метод получает имя пользователя и пароль из запроса, аутентифицирует пользователя и, если аутентификация
+        прошла успешно, возвращает токены обновления и доступа. Если аутентификация не прошла успешно, возвращает ошибку.
+
+        Аргументы:
+            request: Объект запроса.
+
+        Возвращает:
+            Объект Response. Если аутентификация прошла успешно, возвращает статус 200 и токены обновления и доступа.
+            Если аутентификация не прошла успешно, возвращает статус 400 и сообщение об ошибке.
+        """
+        
         username = request.data.get("username", "")
         password = request.data.get("password", "")
         user = authenticate(username=username, password=password)
@@ -73,11 +125,32 @@ class UserLoginView(views.APIView):
     
 
 class ReferralCodeView(views.APIView):    
-    permission_classes = (IsAuthenticated,)
+    """
+    API-представление для работы с реферальными кодами.
+
+    Это представление позволяет аутентифицированным пользователям получать, создавать и удалять свои реферальные коды.
+
+    Атрибуты:
+        permission_classes: Список классов разрешений, которые должно использовать представление.
+    """
+    
+    permission_classes: list = [IsAuthenticated]
 
 
     @swagger_docs.referral_code_get_schema
-    def get(self, request):
+    def get(self, request: Request) -> Response:
+        """
+        Обрабатывает GET-запросы для получения реферального кода пользователя.
+
+        Этот метод получает активный реферальный код пользователя и отправляет его на электронную почту пользователя.
+
+        Аргументы:
+            request: Объект запроса.
+
+        Возвращает:
+            Объект Response. Если активный реферальный код найден, возвращает статус 200 и сообщение о том, что код был отправлен.
+            Если активный реферальный код не найден, возвращает статус 404 и сообщение об ошибке.
+        """
         
         user = request.user
         email = user.email
@@ -101,7 +174,21 @@ class ReferralCodeView(views.APIView):
     
     
     @swagger_docs.referral_code_post_schema
-    def post(self, request):
+    def post(self, request: Request) -> Response:
+        """
+        Обрабатывает POST-запросы для создания реферального кода пользователя.
+
+        Этот метод получает дату истечения срока действия из запроса, создает новый реферальный код с этой датой истечения
+        и делает все другие реферальные коды пользователя неактивными.
+
+        Аргументы:
+            request: Объект запроса.
+
+        Возвращает:
+            Объект Response. Если реферальный код успешно создан, возвращает статус 201 и данные реферального кода.
+            Если дата истечения срока действия не предоставлена или находится в прошлом, возвращает статус 400 и сообщение об ошибке.
+        """
+        
         user = request.user
         expiry_date = request.data.get("expiry_date")
         
@@ -127,7 +214,19 @@ class ReferralCodeView(views.APIView):
     
     
     @swagger_docs.referral_code_delete_schema
-    def delete(self, request):
+    def delete(self, request: Request) -> Response:
+        """
+        Обрабатывает DELETE-запросы для удаления активного реферального кода пользователя.
+
+        Этот метод делает активный реферальный код пользователя неактивным.
+
+        Аргументы:
+            request: Объект запроса.
+
+        Возвращает:
+            Объект Response. Если активный реферальный код успешно удален, возвращает статус 204 и сообщение об успехе.
+            Если активный реферальный код не найден, возвращает статус 404 и сообщение об ошибке.
+        """
         user = request.user
         try:
             referral_code = ReferralCode.objects.get(user=user, is_active = True)
@@ -143,9 +242,31 @@ class ReferralCodeView(views.APIView):
 
 
 class ReferralInfoView(views.APIView):
-    permission_classes = [IsAuthenticated]
+    """
+    API-представление для получения информации о рефералах пользователя.
+
+    Это представление позволяет аутентифицированным пользователям получать информацию о своих рефералах.
+
+    Атрибуты:
+        permission_classes: Список классов разрешений, которые должно использовать представление.
+    """
+    
+    permission_classes:list = [IsAuthenticated]
+    
     @swagger_docs.referral_code_info_schema
-    def get(self, request):
+    def get(self, request: Request) -> Response:
+        """
+        Обрабатывает GET-запросы для получения информации о рефералах пользователя.
+
+        Этот метод получает все рефералы пользователя и возвращает их имена пользователей.
+
+        Аргументы:
+            request: Объект запроса.
+
+        Возвращает:
+            Объект Response. Возвращает статус 200 и список имен пользователей рефералов.
+        """
+        
         user = request.user
         referrals = Referral.objects.filter(referrer=user)
         return Response({"referrals": [referral.referral.username for referral in referrals]}, status=status.HTTP_200_OK)
