@@ -65,9 +65,9 @@ make start-dev
 
 ## Документации
 Документация созданная с помощью Postman:
-- [Документация Postman](https://documenter.getpostman.com/view/29777293/2sA2xnwpYt)
+- ### [Документация Postman](https://documenter.getpostman.com/view/29777293/2sA2xnwpYt)
 Документация созданная с помощью Swagger:
-- [Swagger UI Docs](http://localhost:8000/swagger/)
+- ### [Swagger UI Docs](http://localhost:8000/swagger/)
 
 ### Примечание:
 ### Открыть ссылку на документацию Swagger возможно открыть только при запущенном сервере, если сервер запущен не на localhost:8000 - ничего не получится!
@@ -80,3 +80,5 @@ make start-dev
 Использовался сервис Codacy
 
 ### Миграции выполняются автоматически при каждый раз при запуске контейнера
+
+### Ссылка на вторую часть [Вторая часть тестового](https://github.com/NevermoreKatana/second-part_test)
