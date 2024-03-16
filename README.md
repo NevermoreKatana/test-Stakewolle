@@ -7,6 +7,7 @@
 # Стек
 - Django
 - DRF
+- gunicorn
 - Requests
 - Pydantic
 - drf-yasg(Swagger UI)
