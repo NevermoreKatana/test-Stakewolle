@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "test-stakewolle"
+version = "0.1.0"
+description = ""
+authors = ["NevermoreKatana <grenkachannel@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^5.0.3"
+pydantic = "^2.6.4"
+pydantic-settings = "^2.2.1"
+psycopg-binary = "^3.1.18"
+psycopg2-binary = "^2.9.9"
+djangorestframework = "^3.14.0"
+djangorestframework-simplejwt = "^5.3.1"
+python-dateutil = "^2.9.0.post0"
+requests = "^2.31.0"
+drf-yasg = "^1.21.7"
+
+
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
