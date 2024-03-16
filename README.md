@@ -4,6 +4,11 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/5b8f1dcc4c5248369aa3e45cead2454e)](https://app.codacy.com/gh/NevermoreKatana/test-Stakewolle/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/5b8f1dcc4c5248369aa3e45cead2454e)](https://app.codacy.com/gh/NevermoreKatana/test-Stakewolle/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
+
+## Ссылка на задеплоенное приложение 
+[Swagger UI Deploy](https://test-stakewolle.onrender.com/)
+### Так же можно отправлять API запросы на этот хост
+
 # Стек
 - Django
 - DRF
