@@ -11,7 +11,7 @@ secretkey:
 	poetry run python -c 'from django.utils.crypto import get_random_string; print(get_random_string(100))'
 
 start-production:
-	make migrate
+	make migration
 	poetry run gunicorn -b 0.0.0.0:8000 testapi.wsgi:application
 
 migration:
