@@ -25,7 +25,8 @@ class UserRegistrationView(views.APIView):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             email = serializer.validated_data.get("email")
-            response = requests.get(f"https://api.hunter.io/v2/email-verifier?email={email}&api_key={SETTINGS.eh_api_key}")
+            response = requests.get(f"https://api.hunter.io/v2/email-verifier?email={email}&api_key={SETTINGS.eh_api_key}",
+                                    timeout=None)
             
             if response.json()['data'].get('status') != 'valid':
                 return Response({"error": "Invalid email address"},

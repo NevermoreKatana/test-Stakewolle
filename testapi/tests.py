@@ -3,7 +3,6 @@ from rest_framework.test import APIClient
 from rest_framework import status
 from django.urls import reverse
 from testapi.models import ReferralCode, Referral
-from testapi.serializers import UserSerializer
 from django.contrib.auth import get_user_model
 import json
 from dateutil import parser
@@ -88,7 +87,7 @@ class UserRegistrationViewTestCase(TestCase):
         self.assertEqual(response.data['email'][0], 'This field is required.')
         
     def test_two_username(self):
-        response = self.client.post(
+        self.client.post(
             reverse('registration'),
             data=json.dumps(self.valid_payload),
             content_type='application/json'
